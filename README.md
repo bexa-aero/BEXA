@@ -35,6 +35,20 @@ titles/descriptions. Edit there rather than in individual components.
 - Sponsorship tiers: `SPONSOR_TIERS` in `src/lib/constants.ts`
 - Images/logos: `src/assets/`
 
+## Ownership
+
+This repository belongs to the `bexa-aero` organization so it outlives any
+individual member. Three accounts run the site:
+
+| Service | What it does |
+|---------|--------------|
+| Porkbun | Registers the flybexa.com domain |
+| GitHub  | Holds this code |
+| Vercel  | Builds and serves the site |
+
+Access questions go to bexa.aero@gmail.com. When officers change over, hand
+off all three, not just this repo.
+
 ## Deployment
 
 Every push to `main` auto-deploys via Vercel. `vercel.json` handles the
