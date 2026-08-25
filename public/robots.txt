@@ -1,0 +1,5 @@
+# Keep the Sitemap URL in sync with SITE_URL in src/lib/constants.ts.
+User-agent: *
+Allow: /
+
+Sitemap: https://flybexa.com/sitemap.xml

@@ -1,0 +1,516 @@
+import type {
+  Pillar,
+  TeamPreview,
+  TeamDetail,
+  Prototype,
+  PrototypeDetail,
+  ValueProp,
+  SponsorTier,
+  LeadershipMember,
+  NavLink,
+  PhilosophyCard,
+  ProjectItem,
+} from "./types";
+import edfTestBedPhoto from "@/assets/edf-test-bed.jpg";
+import supersonicTeaser from "@/assets/supersonic-teaser.jpg";
+
+export const NAV_LINKS: NavLink[] = [
+  { label: "Home", href: "/" },
+  { label: "Teams", href: "/teams" },
+  { label: "Efforts", href: "/efforts" },
+  { label: "Join", href: "/join" },
+  { label: "Sponsor", href: "/sponsor" },
+  // { label: "News", href: "/news", hidden: true },
+  // { label: "Resources", href: "/resources", hidden: true },
+];
+
+// Slide: "Work Philosophy": three cards + Research/Design/Test/Refine cycle
+export const WORK_PHILOSOPHY: PhilosophyCard[] = [
+  {
+    icon: "ArrowsClockwise",
+    title: "Prototype to Learn",
+    points: [
+      "Multi-prototype development",
+      "Early flight testing",
+      "Data-driven refinement",
+    ],
+  },
+  {
+    icon: "UsersThree",
+    title: "Adaptive Teams",
+    points: [
+      "Cross-project collaboration",
+      "Flexible contribution paths",
+      "Shared technical ownership",
+    ],
+  },
+  {
+    icon: "MagnifyingGlass",
+    title: "Research Drives Engineering",
+    points: [
+      "Trade studies and literature",
+      "Simulation and test planning",
+      "Experimental validation",
+    ],
+  },
+];
+
+export const PROCESS_STEPS = ["Research", "Design", "Test", "Refine"];
+
+// Slide: "Positions": organizational hierarchy, top tier first
+export const POSITION_TIERS: string[][] = [
+  ["President", "Vice President", "Technical Director"],
+  ["Program Managers", "Directors"],
+  ["Leads"],
+  ["Engineers"],
+  ["Members"],
+];
+
+export const UNIT_LABELS = ["Design Units", "Work Units", "Actions"];
+
+// Ongoing hardware projects, shown in the navbar "Projects" dropdown.
+// Each entry gets a page at /projects/<slug> automatically.
+export const PROJECTS: ProjectItem[] = [
+  {
+    name: "EDF Engine Test Bed",
+    slug: "edf-test-bed",
+    status: "In Development",
+    blurb:
+      "Our proof-of-concept flight platform, instrumented to capture thrust, RPM, efficiency, and flight data from static and airborne testing.",
+    description:
+      "The EDF Test Bed is our proof of concept: put an aircraft in the air and bring real data back down. Built around an electric ducted fan, the platform is instrumented to characterize thrust, RPM, efficiency, and flight performance through both static ground runs and flight testing. Just as importantly, it is the foundation of our avionics, sensing, and RC flight operations. Every system and process we prove here carries forward to the faster, more complex airframes that come next.",
+    image: edfTestBedPhoto,
+    imageAlt: "BExA EDF test bed aircraft",
+  },
+  {
+    name: "Supersonic RC Aircraft",
+    slug: "supersonic-rc-aircraft",
+    status: "In Planning",
+    blurb:
+      "A sub-25 kg remotely piloted aircraft designed to go supersonic: takeoff, sustained flight, and total recovery.",
+    description:
+      "Our boldest effort yet: a supersonic, sub-25 kg remotely piloted aircraft. The mission is simple to state and enormously hard to do: take off, sustain supersonic flight, and recover the vehicle intact, all under remote control. Concept work is underway now; airframe design, propulsion selection, and test milestones are still ahead. More to come.",
+    image: supersonicTeaser,
+    imageAlt: "Supersonic RC aircraft, coming soon teaser",
+  },
+  {
+    name: "Project 3: TBD",
+    slug: "project-3",
+    status: "Planned",
+    blurb: "Project details coming soon as this effort develops.",
+  },
+];
+
+export const PILLARS: Pillar[] = [
+  {
+    title: "Autonomous Systems",
+    description:
+      "Developing intelligent flight control systems and autonomous decision-making capabilities for unmanned platforms.",
+    icon: "Robot",
+  },
+  {
+    title: "High Speed Aerodynamics",
+    description:
+      "Modeling, simulating, and testing aerodynamic performance from subsonic through transonic flight regimes.",
+    icon: "Wind",
+  },
+  {
+    title: "Propulsion",
+    description:
+      "Designing, integrating, and validating propulsion systems from electric ducted fans to jet turbine engines.",
+    icon: "Engine",
+  },
+  {
+    title: "Flight Test & Systems Integration",
+    description:
+      "End-to-end test planning, safety compliance, data collection, and full-system integration for every prototype.",
+    icon: "AirplaneTilt",
+  },
+];
+
+export const TEAMS_PREVIEW: TeamPreview[] = [
+  {
+    name: "Propulsion",
+    slug: "propulsion",
+    description: "Design, integration, and testing of all propulsion systems.",
+    icon: "Engine",
+  },
+  {
+    name: "Aerothermal",
+    slug: "aerothermal",
+    description: "CFD modeling, wind-tunnel testing, and thermal analysis.",
+    icon: "Thermometer",
+  },
+  {
+    name: "Structures",
+    slug: "structures",
+    description: "Airframe design, FEA, and composite manufacturing.",
+    icon: "CubeTransparent",
+  },
+  {
+    name: "Controls",
+    slug: "controls",
+    description: "Flight dynamics modeling and autonomous control systems.",
+    icon: "SlidersHorizontal",
+  },
+  {
+    name: "Avionics",
+    slug: "avionics",
+    description: "Flight computers, sensors, telemetry, and PCB design.",
+    icon: "Cpu",
+  },
+  {
+    name: "Flight Test",
+    slug: "flight-test",
+    description: "Test planning, safety, airspace authorization, and data.",
+    icon: "AirplaneTilt",
+  },
+  {
+    name: "Business",
+    slug: "business",
+    description: "Budgets, sponsorship, outreach, and events.",
+    icon: "Briefcase",
+  },
+];
+
+export const TEAMS_DETAIL: TeamDetail[] = [
+  {
+    name: "Propulsion",
+    slug: "propulsion",
+    icon: "Engine",
+    lead: "TBD",
+    description:
+      "Design, integration, testing, and validation of all propulsion systems including electric ducted fans, turbine engines, fuel systems, and thermal protections.",
+    software: ["MATLAB/Simulink", "Siemens NX", "LabVIEW", "StarCCM+"],
+    hardware: ["JetCat/EDF engines", "Test stands", "Sensors"],
+    skills: ["Thermodynamics", "Fluid mechanics", "CAD", "Test engineering"],
+  },
+  {
+    name: "Aerothermal",
+    slug: "aerothermal",
+    icon: "Thermometer",
+    lead: "TBD",
+    description:
+      "CFD modeling, wind-tunnel testing, thermal load analysis, and aeroelastic simulations to characterize aerodynamic performance across all flight regimes.",
+    software: [
+      "StarCCM+",
+      "Siemens NX",
+      "LabVIEW",
+      "Paraview",
+      "Ohio Supercomputer Center",
+    ],
+    hardware: [
+      "Subsonic and high-speed wind tunnels",
+      "Pressure scanners",
+      "Keil probes",
+    ],
+    skills: ["Aerodynamics", "CFD", "Heat transfer", "Data analysis"],
+  },
+  {
+    name: "Structures",
+    slug: "structures",
+    icon: "CubeTransparent",
+    lead: "TBD",
+    description:
+      "Airframe design, finite element analysis, composite manufacturing with detailed layup schedules, and structural testing to validate airframe integrity.",
+    software: ["Siemens NX", "SimCenter"],
+    hardware: ["3D printers", "Vacuum pump", "Machine shop", "Tooling board"],
+    skills: ["Structural analysis", "FEA", "Composites", "Manufacturing"],
+  },
+  {
+    name: "Controls",
+    slug: "controls",
+    icon: "SlidersHorizontal",
+    lead: "TBD",
+    description:
+      "Six-degree-of-freedom dynamic modeling, control law development, autonomous flight systems, and abort logic for safe unmanned operations.",
+    software: ["MATLAB/Simulink", "Python", "X-Plane"],
+    hardware: [
+      "Flight controllers",
+      "Servos",
+      "Sensor suites",
+      "HIL rigs",
+      "RC/telemetry links",
+    ],
+    skills: ["Control theory", "Dynamics", "MATLAB", "Embedded systems"],
+  },
+  {
+    name: "Avionics",
+    slug: "avionics",
+    icon: "Cpu",
+    lead: "TBD",
+    description:
+      "Flight computers, sensor suites, telemetry systems, power distribution, and PCB design for all onboard electronic systems.",
+    software: ["MATLAB/Simulink", "Altium", "QGroundControl"],
+    hardware: [
+      "Flight computer",
+      "Soldering station",
+      "Telemetry radio",
+      "Data logger",
+    ],
+    skills: [
+      "Electronics",
+      "PCB design",
+      "Embedded programming",
+      "Soldering",
+    ],
+  },
+  {
+    name: "Flight Test",
+    slug: "flight-test",
+    icon: "AirplaneTilt",
+    lead: "TBD",
+    description:
+      "Test planning, safety compliance, FAA airspace authorization, flight data collection, and vehicle recovery for every prototype mission.",
+    software: ["LabVIEW", "MATLAB/Simulink", "QGroundControl"],
+    hardware: [
+      "Ground control station",
+      "Recovery parachutes",
+      "Fire suppression",
+      "Weather station",
+    ],
+    skills: [
+      "Test engineering",
+      "Safety analysis",
+      "Data acquisition",
+      "Flight operations",
+    ],
+  },
+  {
+    name: "Business",
+    slug: "business",
+    icon: "Briefcase",
+    lead: "TBD",
+    description:
+      "Budget management, corporate sponsorship acquisition, community outreach, social media, and event coordination for the organization.",
+    software: ["Adobe Suite", "Excel", "PowerPoint"],
+    hardware: ["N/A"],
+    skills: [
+      "Marketing",
+      "Finance",
+      "Communications",
+      "Graphic design",
+      "Event planning",
+    ],
+  },
+];
+
+export const PROTOTYPES: Prototype[] = [
+  {
+    title: "Prototype 1: EDF",
+    badge: "Active",
+    timeline: "Fall 2026",
+    description:
+      "Electric ducted fan integration with bench and flight testing to validate our airframe and systems architecture.",
+  },
+  {
+    title: "Prototype 2: Jet Engine",
+    badge: "Upcoming",
+    timeline: "Spring 2027",
+    description:
+      "Turbine-powered flight with full fuel system validation and high-thrust performance testing.",
+  },
+  {
+    title: "Prototype 3: High-Speed",
+    badge: "Upcoming",
+    timeline: "Fall 2027 - Spring 2028",
+    description:
+      "Transonic flight testing and Guinness World Record attempt for fastest unmanned aircraft.",
+  },
+];
+
+export const PROTOTYPES_DETAIL: PrototypeDetail[] = [
+  {
+    title: "Prototype 1: EDF",
+    badge: "Active",
+    timeline: "Fall 2026",
+    description:
+      "Electric ducted fan integration with bench and flight testing to validate our airframe and systems architecture.",
+    objective:
+      "Validate airframe design and systems architecture using an electric ducted fan propulsion system.",
+    milestones: [
+      "EDF integration",
+      "Bench test campaign",
+      "First flight",
+      "Data review",
+    ],
+    teamsInvolved: [
+      "Propulsion",
+      "Structures",
+      "Controls",
+      "Avionics",
+      "Flight Test",
+    ],
+  },
+  {
+    title: "Prototype 2: Jet Engine",
+    badge: "Upcoming",
+    timeline: "Spring 2027",
+    description:
+      "Turbine-powered flight with full fuel system validation and high-thrust performance testing.",
+    objective:
+      "Achieve turbine-powered flight with validated fuel system and thermal management.",
+    milestones: [
+      "Engine integration",
+      "Fuel system validation",
+      "Flight test series",
+      "Performance analysis",
+    ],
+    teamsInvolved: [
+      "Propulsion",
+      "Aerothermal",
+      "Structures",
+      "Controls",
+      "Avionics",
+      "Flight Test",
+    ],
+  },
+  {
+    title: "Prototype 3: High-Speed",
+    badge: "Upcoming",
+    timeline: "Fall 2027 - Spring 2028",
+    description:
+      "Transonic flight testing and Guinness World Record attempt for fastest unmanned aircraft.",
+    objective:
+      "Attempt Guinness World Record for fastest unmanned aircraft through transonic flight testing.",
+    milestones: [
+      "High-speed airframe design",
+      "Transonic CFD validation",
+      "Flight test series",
+      "Record attempt",
+    ],
+    teamsInvolved: ["All teams"],
+  },
+];
+
+export const JOIN_VALUE_PROPS: ValueProp[] = [
+  {
+    icon: "Wrench",
+    title: "Hands-On Engineering",
+    body: "Work with MATLAB, Siemens NX, StarCCM+, wind tunnels, composites labs, and real propulsion hardware, not just textbook theory.",
+  },
+  {
+    icon: "Users",
+    title: "Real Team Experience",
+    body: "Collaborate across six engineering disciplines on a shared mission. Practice the cross-functional teamwork that top employers look for.",
+  },
+  {
+    icon: "Trophy",
+    title: "Build Your Resume",
+    body: "Design, build, test, and fly unmanned aircraft. Present results. Publish data. Stand out in internship and job interviews.",
+  },
+];
+
+export const SPONSOR_VALUE_PROPS: ValueProp[] = [
+  {
+    icon: "GraduationCap",
+    title: "Talent Pipeline",
+    body: "Get direct access to top engineering students. BExA members graduate with hands-on experience in propulsion, structures, avionics, and flight test.",
+  },
+  {
+    icon: "Eye",
+    title: "Brand Visibility",
+    body: "Your logo on our aircraft, website, presentations, and event materials, seen by hundreds of engineering students, faculty, and industry partners.",
+  },
+  {
+    icon: "Handshake",
+    title: "Community Impact",
+    body: "Fund real student-led aerospace research. Help build the engineers who will shape the future of flight, defense, and space.",
+  },
+];
+
+export const CONTACT_EMAIL = "bexa.aero@gmail.com";
+
+export const SOCIAL_LINKS = {
+  linkedin: "https://www.linkedin.com/company/buckeye-experimental-aeronautics/",
+  instagram: "https://www.instagram.com/bexa.aero/",
+} as const;
+
+// From the BExA Sponsorship Packet 2026-27. Benefits are cumulative:
+// each tier includes everything in the tiers below it.
+export const SPONSOR_TIERS: SponsorTier[] = [
+  {
+    name: "Gray",
+    price: "$500",
+    tagline: "Get your brand on the team",
+    benefits: ["Logo & link on team website", "Recognition on team social media"],
+  },
+  {
+    name: "Scarlet",
+    price: "$1,000",
+    tagline: "Everything in Gray, plus",
+    benefits: [
+      "Sponsor spotlight feature",
+      "Logo on team apparel",
+      "Access to member résumé book",
+    ],
+  },
+  {
+    name: "Buckeye",
+    price: "$2,500",
+    tagline: "Everything in Scarlet, plus",
+    benefits: [
+      "Logo on aircraft",
+      "Invitations to flight test & demo days",
+      "Hosted recruiting event or info session",
+    ],
+  },
+  {
+    name: "Carmen",
+    price: "$5,000",
+    tagline: "Everything in Buckeye, plus",
+    benefits: [
+      "Premier logo placement (largest, all media)",
+      "Aircraft naming rights",
+    ],
+    highlight: true,
+  },
+];
+
+export const LEADERSHIP: LeadershipMember[] = [
+  { name: "Viktor Bakhurynskyy", title: "President", linkedin: "https://www.linkedin.com/in/vikibax/" },
+  { name: "Sam Patterson", title: "Technical Director", linkedin: "https://www.linkedin.com/in/sampatterson521/" },
+  { name: "Quinn Cohen", title: "Vice President", linkedin: "https://www.linkedin.com/in/quinnmcohen/" },
+  { name: "Dr. Matthew H. McCrink", title: "Advisor" },
+];
+
+// ---------------------------------------------------------------------------
+// SITE_URL is the canonical origin, used for canonical tags, Open Graph URLs,
+// and social share images. If the domain ever changes, update this line plus
+// the matching URLs in public/sitemap.xml, public/robots.txt, and index.html.
+// No trailing slash.
+// ---------------------------------------------------------------------------
+export const SITE_URL = "https://flybexa.com";
+
+export const SEO = {
+  home: {
+    path: "/",
+    title: "BExA - Buckeye Experimental Aeronautics",
+    description:
+      "BExA is a student-led aerospace engineering program building unmanned aircraft and pushing the boundaries of high-speed flight.",
+  },
+  teams: {
+    path: "/teams",
+    title: "Our Teams - BExA | Buckeye Experimental Aeronautics",
+    description:
+      "Explore BExA's seven specialized teams: Propulsion, Aerothermal, Structures, Controls, Avionics, Flight Test, and Business.",
+  },
+  efforts: {
+    path: "/efforts",
+    title: "Current Efforts - BExA | Buckeye Experimental Aeronautics",
+    description:
+      "Follow BExA's prototype roadmap from electric ducted fan testing through jet-powered transonic flight and a Guinness World Record attempt.",
+  },
+  join: {
+    path: "/join",
+    title: "Join BExA - Buckeye Experimental Aeronautics",
+    description:
+      "Join Buckeye Experimental Aeronautics. Work on real aerospace hardware across six engineering disciplines.",
+  },
+  sponsor: {
+    path: "/sponsor",
+    title: "Sponsor BExA - Partner With Student Aerospace Engineers",
+    description:
+      "Partner with BExA to support student aerospace engineering. Access top talent, gain brand visibility, and fund real flight research.",
+  },
+};

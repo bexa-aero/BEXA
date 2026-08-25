@@ -1,0 +1,99 @@
+/* Fonts are loaded via <link rel="preconnect"/"stylesheet"> in index.html.
+   An @import here would serialize an extra round trip before text paints. */
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0d0d0f;
+  --color-surface: #161618;
+  --color-border: #2a2a2e;
+  --color-primary: #BB0000;
+  --color-primary-glow: #BB000040;
+  --color-text: #f0f0f2;
+  --color-muted: #8a8a9a;
+  --color-success: #22c55e;
+  --color-neutral: #64748b;
+
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* NOTE: no global `* { margin: 0 }` reset here. Tailwind v4's preflight
+   already handles it inside @layer. An unlayered reset would override
+   every margin/padding utility on the site. */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background-color: rgba(187, 0, 0, 0.45);
+  color: #ffffff;
+}
+
+/* Visible keyboard focus without affecting mouse users */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip link: hidden until keyboard-focused */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: top 0.15s ease-out;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
+/* Hero height. svh accounts for iOS Safari's collapsing URL bar, but is
+   unsupported below iOS 15.4, so vh is the base and svh upgrades it. */
+.hero-viewport {
+  min-height: calc(100vh - 4rem);
+}
+
+@supports (height: 100svh) {
+  .hero-viewport {
+    min-height: calc(100svh - 4rem);
+  }
+}
+
+/* iOS Safari renders backdrop-filter on the GPU; a dozen blurred cards
+   scrolling at once drops frames on older iPhones. Phones get a solid
+   surface fill instead, which is visually near-identical on small screens. */
+@media (max-width: 767px) {
+  .glass-blur {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(22, 22, 24, 0.92) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
