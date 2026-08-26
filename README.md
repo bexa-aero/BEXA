@@ -54,6 +54,13 @@ off all three, not just this repo.
 Every push to `main` auto-deploys via Vercel. `vercel.json` handles the
 single-page-app routing rewrites.
 
+`www.flybexa.com` is a 308 redirect to the apex domain, which is canonical.
+
+**Keep this repository public.** Vercel's free Hobby plan does not support
+private repositories owned by an organization. If it is switched to private,
+deploys stop firing while the Vercel dashboard still reports "Connected" —
+a silent failure that is hard to diagnose.
+
 If the domain ever changes, update `SITE_URL` in `src/lib/constants.ts` plus
 the matching URLs in `public/sitemap.xml`, `public/robots.txt`, and
 `index.html`. Those four are the only places the origin is hard-coded.
