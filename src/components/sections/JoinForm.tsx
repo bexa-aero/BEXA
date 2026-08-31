@@ -4,8 +4,11 @@ import { z } from "zod/v4";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { CheckCircle, CaretDown } from "@phosphor-icons/react";
-import { CONTACT_EMAIL } from "@/lib/constants";
+import { CONTACT_EMAIL, JOIN_FORM } from "@/lib/constants";
 
+// These strings must match the Google Form's choices EXACTLY. Google silently
+// drops any value it does not recognize, and the opaque no-cors response means
+// the site cannot detect it. Verify against the form before changing either.
 const TEAM_OPTIONS = [
   "Propulsion",
   "Aerothermal",
@@ -14,7 +17,7 @@ const TEAM_OPTIONS = [
   "Avionics",
   "Flight Test",
   "Business",
-  "Not sure yet",
+  "Undecided",
 ] as const;
 
 const YEAR_OPTIONS = [
@@ -22,7 +25,7 @@ const YEAR_OPTIONS = [
   "Sophomore",
   "Junior",
   "Senior",
-  "Graduate",
+  "Graduate Student",
 ] as const;
 
 const formSchema = z.object({
@@ -42,6 +45,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function JoinForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const {
     register,
@@ -76,12 +80,32 @@ export default function JoinForm() {
     }
   };
 
-  const onSubmit = (data: FormData) => {
-    const subject = encodeURIComponent(`BExA Interest Form: ${data.fullName}`);
-    const body = encodeURIComponent(
-      `Name: ${data.fullName}\nEmail: ${data.email}\nYear: ${data.year}\nMajor: ${data.major}\nSub-teams: ${data.teams.join(", ")}\n\nWhy BExA:\n${data.whyBexa}`
-    );
-    window.open(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`, "_self");
+  const onSubmit = async (data: FormData) => {
+    setSending(true);
+
+    const body = new URLSearchParams();
+    body.append(JOIN_FORM.fields.fullName, data.fullName);
+    body.append(JOIN_FORM.fields.email, data.email);
+    body.append(JOIN_FORM.fields.year, data.year);
+    body.append(JOIN_FORM.fields.major, data.major);
+    // Checkbox questions take one repeated key per selected choice
+    data.teams.forEach((team) => body.append(JOIN_FORM.fields.teams, team));
+    body.append(JOIN_FORM.fields.whyBexa, data.whyBexa);
+
+    try {
+      // Google Forms sends no CORS headers, so the response is opaque and we
+      // cannot read its status. The success screen offers an email fallback
+      // for the rare case this silently fails.
+      await fetch(JOIN_FORM.action, {
+        method: "POST",
+        mode: "no-cors",
+        body,
+      });
+    } catch {
+      // Network-level failure only; the fallback below still gives them a path.
+    }
+
+    setSending(false);
     setSubmitted(true);
   };
 
@@ -113,7 +137,16 @@ export default function JoinForm() {
                 Thanks for your interest!
               </h3>
               <p className="text-sm text-muted">
-                We'll be in touch.
+                Your response has been recorded. We'll be in touch.
+              </p>
+              <p className="text-xs text-muted/80 mt-4">
+                Didn't hear back? Reach us directly at{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-text/80 underline underline-offset-2 hover:text-primary transition-colors"
+                >
+                  {CONTACT_EMAIL}
+                </a>
               </p>
             </motion.div>
           ) : (
@@ -289,9 +322,10 @@ export default function JoinForm() {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full h-11 rounded-md bg-primary text-white text-sm font-medium transition-all hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(187,0,0,0.3)] active:scale-[0.99]"
+                  disabled={sending}
+                  className="w-full h-11 rounded-md bg-primary text-white text-sm font-medium transition-all hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(187,0,0,0.3)] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Submit Interest Form
+                  {sending ? "Sending..." : "Submit Interest Form"}
                 </button>
               </form>
             </>

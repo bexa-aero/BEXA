@@ -421,6 +421,28 @@ export const SPONSOR_VALUE_PROPS: ValueProp[] = [
 
 export const CONTACT_EMAIL = "bexa.aero@gmail.com";
 
+// Join page interest form. Submissions POST straight into a Google Form owned
+// by bexa.aero@gmail.com, so responses collect in its linked Google Sheet.
+//
+// The `entry.*` ids come from the form's "Get pre-filled link" output. If a
+// question is ever added, removed, or reordered in Google Forms, regenerate a
+// pre-filled link and update these ids.
+//
+// IMPORTANT: option text below must match the Google Form's choices exactly.
+// Google rejects values it does not recognize, which silently drops the answer.
+export const JOIN_FORM = {
+  action:
+    "https://docs.google.com/forms/d/e/1FAIpQLSdtCT_Ntl8_kjo9beXnoHoo8teObdXqHs_1fz93pl2d02rXQg/formResponse",
+  fields: {
+    fullName: "entry.1388268618",
+    email: "entry.1399407890",
+    year: "entry.1527919009",
+    major: "entry.944276116",
+    teams: "entry.1676710126",
+    whyBexa: "entry.1209205276",
+  },
+} as const;
+
 export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/company/buckeye-experimental-aeronautics/",
   instagram: "https://www.instagram.com/bexa.aero/",
