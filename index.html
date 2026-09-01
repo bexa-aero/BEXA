@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <!-- Favicons must be SQUARE: a wide logo gets squashed into an illegible
-         smear at 16px. Small sizes use the Ex mark alone; 180px and up use the
-         full lockup, whose wordmark is unreadable below roughly 64px. -->
+         smear at 16px. Every rel="icon" here is the Ex mark WITHOUT the
+         wordmark, because anything that renders small (tabs, search results)
+         downscales these, and the wordmark turns to mush below ~64px.
+         Google recommends a source larger than 48px, hence the 192.
+         The full lockup is reserved for apple-touch-icon and the manifest,
+         which are only ever shown large. -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
